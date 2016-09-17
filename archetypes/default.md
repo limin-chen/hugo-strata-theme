@@ -1,4 +1,6 @@
 +++
 tags = []
 categories = []
+banner = ""
+summary = ""
 +++

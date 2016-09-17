@@ -1,16 +1,27 @@
+{{ "<!-- recent post -->" | safeHTML }}
 <section>
-    {{ with .Site.Params.recentposts.title }}
-        <h2>{{ . }}</h2>
-    {{ end }}
+  {{ with .Site.Params.recentposts.title }}
+  <h2>{{ . }}</h2>
+  {{ end }}
+  <br>
 
-    <div class="row">
-        <br>
-        <p>
-        <ol class="recent-posts">
-        {{ range first 5 (where .Data.Pages "Section" "post") }}
-            <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  <div class="row">
+    {{ range .Data.Pages }}
+    <article class="6u 12u$(xsmall) work-item">
+      <a href="{{ .Permalink }}" class="image fit thumb">
+        {{ if and (isset .Params "banner") (not (eq .Params.banner "")) }}
+        <img src="{{ .Params.banner | absURL}}" alt="" />
+        {{ else }}
+        <img src="{{ $.Site.BaseURL }}/images/01.jpg" alt="" />
         {{ end }}
-        </ol>
-        </p>
-    </div>
+
+        <a href="{{ .Permalink }}">
+          {{ .Title }}
+        </a>
+        <p>{{ .Params.summary | markdownify }}</p>
+      </a>
+    </article>
+    {{ end }}
+  </div>
+
 </section>
